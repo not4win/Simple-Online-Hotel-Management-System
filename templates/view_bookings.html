@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+	<h1>Bookings</h1>
+	<hr>
+
+	<table class="table table-striped">
+		<tr>
+			<th>ID</th>
+			<th>Room Number</th>
+			<th>Type</th>
+			<th>Status</th>
+			<th>Capacity</th>
+			<th>Capacity</th>
+			<th>Capacity</th>
+			<th>Capacity</th>
+			<th>Capacity</th>
+
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		
+		{% for booking in bookings %}
+		<tr>
+			<td>{{booking.b_id}}</td>
+			<td>{{booking.r_id}}</td>
+			<td>{{booking.g_id}}</td>
+			<td>{{booking.b_status}}</td>
+			<td>{{booking.a_id}}</td>
+			<td>{{booking.st}}</td>
+			<td>{{booking.et}}</td>
+			<td>{{booking.f_cost}}</td>
+			<td>{{booking.f_type}}</td>
+
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
