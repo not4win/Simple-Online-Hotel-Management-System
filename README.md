@@ -1,4 +1,4 @@
-# Hotel Management System
+# Simple Online Hotel Management System
 
 #### AIM
 
@@ -12,3 +12,9 @@ It also supports Admin privileges through an admin console with the control to c
 #### Built with
 
 Flask, Python, ngrok library for Local web Tunnelling and debugging, Javascript, CSS, HTML, MySQL etc.
+
+### To get started
+pip install -r requirements.txt
+mysql -u root -p < alldb.sql
+
+Change the username and password of mysql in app.py file
