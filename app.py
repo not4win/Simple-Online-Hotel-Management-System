@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask, render_template, make_response, flash, redirect, url_for, session, request, logging
 import random
 from flask_mysqldb import MySQL
@@ -16,7 +18,7 @@ app = Flask(__name__)
 # Config MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'sqlftw'
 app.config['MYSQL_DB'] = 'hotel_mgmt'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # init MYSQL
@@ -484,11 +486,10 @@ def bookings(id):
 		print(check_in)
 		if id[0] == 'R':
 			g_id = random.randint(1, 1000)
-
 			result = cur.execute("SELECT r_type FROM rooms WHERE r_id=%s",[id])
 			result = cur.fetchone()
 			f_type = result['r_type']
-
+			print(f_type)
 			result = cur.execute("SELECT cost FROM charge WHERE code = 1 AND type=%s",[f_type])
 			result = cur.fetchone()
 			f_cost = result['cost']
@@ -524,8 +525,9 @@ def bookings(id):
 
 
 		if id[0] == 'R':
-			cur.execute("INSERT INTO bookings(b_id, r_id, g_id, b_status, a_id, st, et, f_type, f_cost) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)", (b_id, id, g_id, status, '0', check_in, check_out, f_type, f_cost))
 			cur.execute("INSERT INTO guests(g_id, g_name, g_email, g_count, g_streetno, g_city, g_state, g_country, g_pincode) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)",(g_id, name, email, count, streetno, city, state, country, pincode))
+
+			cur.execute("INSERT INTO bookings(b_id, r_id, g_id, b_status,st, et, f_type, f_cost) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (b_id, id, g_id, status,check_in, check_out, f_type, f_cost))
 		else:
 			cur.execute("INSERT INTO bookings(b_id, r_id, g_id, b_status, a_id, st, et, f_type, f_cost) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)", (b_id, id, g_id, status, id, check_in, check_out, f_type, f_cost))
 		
